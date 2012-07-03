@@ -20,9 +20,9 @@ case ${codename} in
 	maverick)	fullcodename="Maverick Meerkat"	;;
 esac
 
-tmpdir=${tmpdir:-~/repocache/${codename}}
+tmpdir=${tmpdir:-~/aptisocache/${codename}}
 outputdir=${outputdir:-~}
-prefix=${prefix:-~/repocd/${codename}}
+prefix=${prefix:-~/aptiso/${codename}}
 ARCH=${ARCH:-`uname -m`}
 
 if [[ "${ARCH}" = "x86_64" ]]
@@ -32,13 +32,19 @@ else
 	ARCH=i386
 fi
 
-for i in apt-rdepends aptitude reprepro genisoimage
+for i in apt-rdepends aptitude reprepro genisoimage gnupg-agent pinentry-curses
 do
     if [ "x`dpkg -s ${i} | grep installed >& /dev/null`x" = "xx" ]
     then
         apt-get --yes --force-yes install ${i} || exit 1
     fi
 done
+
+if [ "x${CPI_GPG_KEY}x" != "xx" ]
+then
+    gpg --import -a ${CPI_GPG_KEY}
+    eval $(gpg-agent --daemon)
+fi
 
 [[ -d ${tmpdir} ]] || mkdir -p ${tmpdir}
 [[ -d ${prefix} ]] || mkdir -p ${prefix}
