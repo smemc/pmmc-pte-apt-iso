@@ -40,10 +40,12 @@ do
     fi
 done
 
-if [ "x${CPI_GPG_KEY}x" != "xx" ]
+if [ -f ./cpi-secret-key.asc ]
 then
-    gpg --import -a "${CPI_GPG_KEY}"
+    gpg --import -a ./cpi-secret-key.asc
     eval $(gpg-agent --daemon)
+else
+    exit 1
 fi
 
 [[ -d ${tmpdir} ]] || mkdir -p ${tmpdir}
