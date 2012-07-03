@@ -23,19 +23,34 @@ esac
 tmpdir=${tmpdir:-~/repocache/${codename}}
 outputdir=${outputdir:-~}
 prefix=${prefix:-~/repocd/${codename}}
-arch=${arch:-`uname -m`}
+ARCH=${ARCH:-`uname -m`}
 
-if [[ "${arch}" = "x86_64" ]]
+if [[ "${ARCH}" = "x86_64" ]]
 then
-	arch=amd64
+	ARCH=amd64
 else
-	arch=i386
+	ARCH=i386
 fi
+
+for i in apt-rdepends aptitude reprepro genisoimage
+do
+    if [ "x`dpkg -s ${i} | grep installed >& /dev/null`x" = "xx" ]
+    then
+        apt-get --yes --force-yes install ${i} || exit 1
+    fi
+done
 
 [[ -d ${tmpdir} ]] || mkdir -p ${tmpdir}
 [[ -d ${prefix} ]] || mkdir -p ${prefix}
 [[ -d ${prefix}/.disk ]] || mkdir ${prefix}/.disk
 [[ -d ${prefix}/conf ]] || mkdir ${prefix}/conf
+
+cat > /etc/apt/sources.list.d/oiteam-pte-pmmc-hardy.list <<EOF
+deb http://ppa.launchpad.net/oiteam/pte-pmmc/ubuntu ${codename} main
+deb-src http://ppa.launchpad.net/oiteam/pte-pmmc/ubuntu ${codename} main
+EOF
+
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9B232AB8
 
 cat > ${prefix}/conf/distributions <<EOF
 Origin: Equipe de Orientadores de Informática
@@ -43,32 +58,32 @@ Label: PTE-PMMC
 Suite: ${codename}
 Codename: ${codename}
 Version: ${version}
-Architectures: ${arch}
-Components: pte
+Architectures: ${ARCH}
+Components: main
 SignWith: cpi.pmmc@gmail.com
 Description: Pequeno repositório para distribuir os pacotes do Programa de Tecnologia Educacional da Prefeitura Municipal de Mogi das Cruzes - SP.
 EOF
 
 cat > ${prefix}/.disk/info <<EOF
-PTE-PMMC for Ubuntu ${version} "${fullcodename}" ${arch} (`date +%Y-%m-%d`)
+PTE-PMMC for Ubuntu ${version} "${fullcodename}" ${ARCH} (`date +%Y-%m-%d`)
 EOF
 
 cat > ${prefix}/README.diskdefines <<EOF
 #define DISKNAME  `cat ${prefix}/.disk/info`
 #define TYPE  binary
 #define TYPEbinary  CD1
-#define ARCH  ${arch}
-#define ARCH${arch}  CD1
+#define ARCH  ${ARCH}
+#define ARCH${ARCH}  CD1
 #define DISKNUM  CD1
 #define DISKNUMCD1  CD1
 #define TOTALNUM  CD1
 #define TOTALNUMCD1  CD1
 EOF
 
-#echo
-#echo ">>> Atualizando a base de dados de pacotes nos repositórios..."
-#echo
-#sudo aptitude update
+echo
+echo ">>> Atualizando a base de dados de pacotes nos repositórios..."
+echo
+apt-get update
 
 echo
 echo ">>> Construindo a árvore de dependências dos pacotes \"${pkglist}\"..."
@@ -98,7 +113,7 @@ echo
 echo ">>> Criando a imagem do CD..."
 echo
 rm -rf ${prefix}/{conf,db}
-image=${outputdir}/pte-pmmc-aptiso-${codename}-${version}.`date +%Y%m%d`-${arch}.iso
+image=${outputdir}/pte-pmmc-aptiso-${codename}-${version}.`date +%Y%m%d`-${ARCH}.iso
 
 [[ -f ${image} ]] && rm ${image}
 mkisofs -r -J -A "`cat ${prefix}/.disk/info`" -o ${image} ${prefix} || exit 1
