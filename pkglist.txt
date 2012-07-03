@@ -1,0 +1,16 @@
+pmmc-pte-flashplayer-installer
+pai
+pai-installer-common
+pai-data-installer
+pai-doc-installer
+pai-client-minimal
+pai-server
+sei
+sei-installer-common
+sei-data-installer
+sei-doc-installer
+sei-client-minimal
+sei-server
+adobe-flashplugin
+openjdk-6-jre
+icedtea6-plugin
