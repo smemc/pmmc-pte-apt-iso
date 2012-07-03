@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Script para automatizar a criação de CDs de instalação do repositório do PTE-PMMC.
-# Autor: Laércio Benedito Sivali de Sousa <lbsousajr+cpi@gmail.com>
+# Builds an ISO image with an APT-compatible off-line repository for PTE-PMMC.
+# Author: Laércio Benedito Sivali de Sousa <lbsousajr@gmail.com>
 #
-# Dependências: apt-rdepends, aptitude, reprepro, genisoimage
+# Dependencies: apt-rdepends, aptitude, reprepro, genisoimage
 #
-# OBS: Requer a chave privada GPG da Comissão ProInfo (CPI) para assinatura digital do repositório.
-# Apenas os membros da CPI possuem esta chave e, portanto, somente eles estão aptos a executar
-# este script.
+# OBS: Requires GPG private key from "Comissão do ProInfo" (CPI) to digitally sign the repository.
+# Only CPI members have this key, thus only they can build APT-ISO images for PTE-PMMC.
 
 source /etc/lsb-release
 
