@@ -20,9 +20,9 @@ case ${codename} in
 	maverick)	fullcodename="Maverick Meerkat"	;;
 esac
 
-tmpdir=${tmpdir:-~/aptisocache/${codename}}
-outputdir=${outputdir:-~}
-prefix=${prefix:-~/aptiso/${codename}}
+tmpdir=${tmpdir:-/var/cache/aptiso/${codename}}
+outputdir=${outputdir:-/home}
+prefix=${prefix:-/tmp/aptiso/${codename}}
 ARCH=${ARCH:-`uname -m`}
 
 if [[ "${ARCH}" = "x86_64" ]]
@@ -32,7 +32,7 @@ else
 	ARCH=i386
 fi
 
-for i in apt-rdepends aptitude reprepro genisoimage gnupg-agent pinentry-curses
+for i in apt-rdepends aptitude reprepro genisoimage pinentry-curses gnupg-agent
 do
     if [ "x`dpkg -s ${i} | grep installed >& /dev/null`x" = "xx" ]
     then
@@ -54,8 +54,10 @@ fi
 [[ -d ${prefix}/conf ]] || mkdir ${prefix}/conf
 
 cat > /etc/apt/sources.list.d/oiteam-pte-pmmc-hardy.list <<EOF
-deb http://ppa.launchpad.net/oiteam/pte-pmmc/ubuntu ${codename} main
-deb-src http://ppa.launchpad.net/oiteam/pte-pmmc/ubuntu ${codename} main
+deb http://localhost/~laercio/localapt/ubuntu ${codename} main
+deb-src http://localhost/~laercio/localapt/ubuntu ${codename} main
+deb http://ppa.launchpad.net/oiteam/proinfo-83.2008/ubuntu ${codename} main
+deb-src http://ppa.launchpad.net/oiteam/proinfo-83.2008/ubuntu ${codename} main
 deb http://archive.canonical.com/ubuntu ${codename} partner
 deb-src http://archive.canonical.com/ubuntu ${codename} partner
 EOF
@@ -117,7 +119,7 @@ done
 echo
 echo ">>> Adicionando a chave pública de assinatura digital do repositório à imagem do CD..."
 echo
-gpg --export -a "Comissão ProInfo" > ${prefix}/cpi-public-key.asc
+gpg --export -a 3C6EFA5E > ${prefix}/cpi-public-key.asc
 
 echo
 echo ">>> Criando a imagem do CD..."
