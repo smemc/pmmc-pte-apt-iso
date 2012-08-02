@@ -63,6 +63,7 @@ deb-src http://archive.canonical.com/ubuntu ${codename} partner
 EOF
 
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9B232AB8
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3C6EFA5E
 
 cat > ${prefix}/conf/distributions <<EOF
 Origin: Equipe de Orientadores de Informática
