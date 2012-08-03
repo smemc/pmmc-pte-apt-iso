@@ -18,3 +18,4 @@ adobe-flashplugin
 openjdk-6-jre
 icedtea6-plugin
 firefox
+firefox-branding

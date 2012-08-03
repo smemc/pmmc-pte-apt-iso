@@ -23,6 +23,7 @@ libitalc
 italc-master
 italc-client
 firefox
+firefox-branding
 chromium-browser
 chromium-browser-l10n
 chromium-codecs-ffmpeg
