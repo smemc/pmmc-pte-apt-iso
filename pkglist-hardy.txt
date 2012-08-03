@@ -19,3 +19,9 @@ openjdk-6-jre
 icedtea6-plugin
 firefox
 firefox-branding
+language-pack-pt
+language-pack-pt-base
+language-pack-gnome-pt
+language-pack-gnome-pt-base
+language-pack-kde-pt
+language-pack-kde-pt-base

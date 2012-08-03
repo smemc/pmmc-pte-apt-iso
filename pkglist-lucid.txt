@@ -24,7 +24,14 @@ italc-master
 italc-client
 firefox
 firefox-branding
+firefox-locale-pt
 chromium-browser
 chromium-browser-l10n
 chromium-codecs-ffmpeg
 chromium-codecs-ffmpeg-extra
+language-pack-pt
+language-pack-pt-base
+language-pack-kde-pt
+language-pack-kde-pt-base
+language-pack-gnome-pt
+language-pack-gnome-pt-base
