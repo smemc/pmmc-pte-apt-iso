@@ -24,6 +24,6 @@ italc-master
 italc-client
 firefox
 chromium-browser
-chromium-broswer-l10n
+chromium-browser-l10n
 chromium-codecs-ffmpeg
 chromium-codecs-ffmpeg-extra
