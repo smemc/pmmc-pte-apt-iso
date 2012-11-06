@@ -25,3 +25,6 @@ language-pack-gnome-pt
 language-pack-gnome-pt-base
 language-pack-kde-pt
 language-pack-kde-pt-base
+gcompris
+gcompris-data
+gcompris-sound-ptbr

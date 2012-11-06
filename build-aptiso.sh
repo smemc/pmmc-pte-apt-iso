@@ -53,11 +53,13 @@ fi
 [[ -d ${prefix}/.disk ]] || mkdir ${prefix}/.disk
 [[ -d ${prefix}/conf ]] || mkdir ${prefix}/conf
 
-cat > /etc/apt/sources.list.d/oiteam-pte-pmmc-hardy.list <<EOF
+cat > /etc/apt/sources.list.d/oiteam-pte-pmmc.list <<EOF
 deb http://localhost/~laercio/localapt/ubuntu ${codename} main
 deb-src http://localhost/~laercio/localapt/ubuntu ${codename} main
 deb http://ppa.launchpad.net/oiteam/proinfo-83.2008/ubuntu ${codename} main
 deb-src http://ppa.launchpad.net/oiteam/proinfo-83.2008/ubuntu ${codename} main
+deb http://ppa.launchpad.net/oiteam/gcompris/ubuntu ${codename} main
+deb-src http://ppa.launchpad.net/oiteam/gcompris/ubuntu ${codename} main
 deb http://archive.canonical.com/ubuntu ${codename} partner
 deb-src http://archive.canonical.com/ubuntu ${codename} partner
 EOF
